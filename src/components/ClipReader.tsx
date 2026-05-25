@@ -275,7 +275,7 @@ export function ClipReader({
           <>
             <div className="w-px h-5 bg-black/10 dark:bg-white/10 mx-1.5" />
             <button
-              onClick={() => openUrl(clip.url)}
+              onClick={() => openUrl(clip.url).catch(e => console.error('[clip] open url failed:', e))}
               title="在浏览器中打开原文"
               className={BTN}
             >

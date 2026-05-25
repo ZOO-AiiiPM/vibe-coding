@@ -1,7 +1,7 @@
 {
   "name": "vibe-coding",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Local-first AI information manager built with Tauri, React, and SQLite.",
   "license": "MIT",
   "type": "module",

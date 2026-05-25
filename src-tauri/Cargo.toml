@@ -1,6 +1,6 @@
 [package]
 name = "vibe-coding"
-version = "0.1.0"
+version = "0.1.2"
 description = "Local-first AI information manager."
 authors = ["vibe-coding contributors"]
 license = "MIT"

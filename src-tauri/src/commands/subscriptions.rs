@@ -198,7 +198,7 @@ fn record_source_failure(conn: &Connection, id: i64, error: &str) -> Result<(), 
             params![id],
             |r| r.get(0),
         )
-        .unwrap_or(0);
+        .map_err(|e| format!("DB_ERROR: {}", e))?;
 
     if count >= FAILURE_THRESHOLD {
         conn.execute(

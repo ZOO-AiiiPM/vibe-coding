@@ -20,7 +20,7 @@ not part of the open-source app.
 
 ## Requirements
 
-- macOS for the current packaged app.
+- macOS (Apple Silicon) for the current packaged app. Intel Macs are not yet supported.
 - Node.js 22.
 - pnpm 10.28.1.
 - Rust toolchain with the Tauri 2 prerequisites installed.

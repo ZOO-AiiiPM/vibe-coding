@@ -109,14 +109,16 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    refresh()
+    // notes + clips 必须都加载完再关 loading；否则 setLoading(false) 可能在 clips 还没回来时触发，
+    // 用户立刻切到剪藏区会看到短暂"空白"。
+    Promise.all([refresh(), refreshClips()])
       .then(() => {
         cleanupOrphans()
           .then(n => { if (n > 0) console.log(`[cleanup] removed ${n} orphan attachments`); })
           .catch(e => console.error('[cleanup] failed:', e));
       })
+      .catch(e => console.error('[init] data load failed:', e))
       .finally(() => setLoading(false));
-    refreshClips();
   }, [refresh, refreshClips]);
 
   const ensureNoteLoaded = useCallback(async (id: number) => {

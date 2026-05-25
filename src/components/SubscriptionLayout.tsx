@@ -95,17 +95,25 @@ export function SubscriptionLayout({ hidden = false, expanded, onExpand }: Props
       setHistoryIdx(-1);
       return;
     }
-    refreshEntries(selectedSourceId).then(list => {
-      // 切源时清空历史栈（跨源历史无意义）+ 默认打开第一条 entry。
-      // 不调 handleEntrySelect / markEntryRead——保留未读 badge 让用户自己点击触发已读。
-      if (list.length > 0) {
-        setHistory([list[0]]);
-        setHistoryIdx(0);
-      } else {
+    refreshEntries(selectedSourceId)
+      .then(list => {
+        // 切源时清空历史栈（跨源历史无意义）+ 默认打开第一条 entry。
+        // 不调 handleEntrySelect / markEntryRead——保留未读 badge 让用户自己点击触发已读。
+        if (list.length > 0) {
+          setHistory([list[0]]);
+          setHistoryIdx(0);
+        } else {
+          setHistory([]);
+          setHistoryIdx(-1);
+        }
+      })
+      .catch(e => {
+        // 加载失败时显式清空，避免新源标题下显示老源 entries 的迷惑场景
+        console.error('[subscription] load entries failed:', e);
+        setEntries([]);
         setHistory([]);
         setHistoryIdx(-1);
-      }
-    });
+      });
   }, [selectedSourceId, refreshEntries]);
 
   const handleAdd = useCallback(async (url: string) => {
